@@ -9,7 +9,7 @@ local function homePage()
                 builder = function(context)
                     local widget = Scaffold {
                             appBar = AppBar{
-                                title = Text("Flutter Demo Home Page"),
+                                title = Text("Lua Flutter Demo Home Page"),
                                 backgroundColor = Theme.of(context).colorScheme.inversePrimary
                             },
                             body = Center{

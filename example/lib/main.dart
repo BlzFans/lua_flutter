@@ -5,6 +5,7 @@ import 'package:lua_flutter/lua_flutter.dart';
 void main() {
   debugPrint("dart main");
   initLuaFlutter();
+
   /*
   dostring(g_L, 
     """
@@ -23,8 +24,14 @@ void main() {
       runApp(widget)
     """
   );
+  return;
   */
 
-  dostring(g_L, "package.path = '?.lua;build/windows/runner/Debug/?.lua;build/windows/runner/Release/?.lua'");
+  if (kReleaseMode) {
+    dostring(g_L, "package.path = '?.lua;build/windows/runner/Release/?.lua'");
+  } else {
+    dostring(g_L, "package.path = '?.lua;build/windows/runner/Debug/?.lua'");
+  }
+
   dostring(g_L, "require 'data/flutter_assets/assets/main'");
 }

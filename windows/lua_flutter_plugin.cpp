@@ -74,6 +74,24 @@ struct DartStateScope {
     };
 };
 
+struct stack_reset
+{
+    stack_reset(lua_State* L)
+        : m_L(L)
+        , m_top(lua_gettop(L))
+    {
+    }
+
+    ~stack_reset()
+    {
+        lua_settop(m_L, m_top);
+    }
+
+private:
+    lua_State* m_L;
+    int m_top;
+};
+
 static int dart_method_call(lua_State* L)
 {
     int64_t (*dartFunction)(void*);
@@ -95,7 +113,7 @@ static int dart_method_call(lua_State* L)
     return ret;
 }
 
-int getLuaValue(lua_State* L, const char* key)
+LUA_FLUTTER_API int luaGetValue(lua_State* L, const char* key)
 {
     lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);       //[table]
 
@@ -133,7 +151,7 @@ int getLuaValue(lua_State* L, const char* key)
     }
 }
 
-bool setLuaValue(lua_State* L, const char* key)
+LUA_FLUTTER_API bool luaSetValue(lua_State* L, const char* key)
 {
     //[value]
     lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);   //[value table]
@@ -182,16 +200,6 @@ bool setLuaValue(lua_State* L, const char* key)
             ptr2++;
         }
     }
-}
-
-LUA_FLUTTER_API int luaGetValue(lua_State* L, const char* name)
-{
-    return getLuaValue(L, name);
-}
-
-LUA_FLUTTER_API void luaSetValue(lua_State* L, const char* name)
-{
-    setLuaValue(L, name);
 }
 
 static void callstack(lua_State* L, int n)
@@ -244,7 +252,7 @@ LUA_FLUTTER_API void luaL_error_dart(lua_State* L, const char* error)
 LUA_FLUTTER_API void luaRegisterMethod(lua_State* L, const char* className, const char* method, int64_t address)
 {
     assert(className);
-    int type = getLuaValue(L, className);
+    int type = luaGetValue(L, className);
     assert(type == LUA_TTABLE);
     if (type != LUA_TTABLE)
     {
@@ -266,7 +274,7 @@ LUA_FLUTTER_API void luaRegisterFunction(lua_State* L, const char* function, int
     lua_pushlightuserdata(L, (void*)address);
     lua_pushboolean(L, 0);                              //lua_error
     lua_pushcclosure(L, dart_method_call, 2);
-    setLuaValue(L, function);
+    luaSetValue(L, function);
 }
 
 static int dartGetProp(lua_State* L)
@@ -330,7 +338,7 @@ static int meta_index(lua_State* L)                //[userdata key]
 
 LUA_FLUTTER_API void luaRegisterClass(lua_State* L, const char* className, const char* superClass, int64_t getProp)
 {
-    int type = getLuaValue(L, className);
+    int type = luaGetValue(L, className);
     lua_pop(L, 1);
     assert(type == LUA_TNIL);
 
@@ -343,7 +351,7 @@ LUA_FLUTTER_API void luaRegisterClass(lua_State* L, const char* className, const
     lua_pushvalue(L, -2);                          //[table "__index" table]
     lua_pushlightuserdata(L, (void*)getProp);      //[table "__index" table getProp]
     if (superClass && superClass[0]) {
-        type = getLuaValue(L, superClass);         //[table "__index" table getProp superClass]
+        type = luaGetValue(L, superClass);         //[table "__index" table getProp superClass]
         assert(type == LUA_TTABLE || type == LUA_TNIL);
 
         if (type == LUA_TTABLE) {
@@ -361,17 +369,17 @@ LUA_FLUTTER_API void luaRegisterClass(lua_State* L, const char* className, const
 
     //__gc
     lua_pushstring(L, "__gc");                     //[table "__gc"]
-    getLuaValue(L, "dart_metal.__gc");      //[table "__gc" dart_metal.__gc]
+    luaGetValue(L, "dart_metal.__gc");             //[table "__gc" dart_metal.__gc]
     lua_rawset(L, -3);                             //[table]
 
     //__tostring
     lua_pushstring(L, "__tostring");               //[table "__tostring"]
-    getLuaValue(L, "dart_metal.__tostring");//[table "__tostring" dart_metal.__tostring]
+    luaGetValue(L, "dart_metal.__tostring");       //[table "__tostring" dart_metal.__tostring]
     lua_rawset(L, -3);                             //[table]
 
     //__eq
     lua_pushstring(L, "__eq");                     //[table "__eq"]
-    getLuaValue(L, "dart_metal.__eq");      //[table "__eq" dart_metal.__eq]
+    luaGetValue(L, "dart_metal.__eq");             //[table "__eq" dart_metal.__eq]
     lua_rawset(L, -3);                             //[table]
 
     //name
@@ -382,13 +390,13 @@ LUA_FLUTTER_API void luaRegisterClass(lua_State* L, const char* className, const
     //__super
     if (superClass && superClass[0]) {
         lua_pushstring(L, "__super");              //[table "__super"]
-        type = getLuaValue(L, superClass);  //[table "__super" superClass]
+        type = luaGetValue(L, superClass);         //[table "__super" superClass]
         assert(type == LUA_TTABLE);
 
         lua_rawset(L, -3);                         //[table]
     }
 
-    setLuaValue(L, className);              //[]
+    luaSetValue(L, className);                     //[]
 }
 
 LUA_FLUTTER_API void luaPushObject(lua_State* L, int64_t id, int metaTable)
@@ -434,52 +442,6 @@ bool _doBuffer(lua_State* L, const char* buffer, size_t size)
     }
 
     return err == LUA_OK ? true : false;
-}
-
-struct stack_reset
-{
-    stack_reset(lua_State* L)
-        : m_L(L)
-        , m_top(lua_gettop(L))
-    {
-    }
-
-    ~stack_reset()
-    {
-        lua_settop(m_L, m_top);
-    }
-
-private:
-    lua_State* m_L;
-    int m_top;
-};
-
-LUA_FLUTTER_API void luaDoString(lua_State* L, const char* str)
-{
-    stack_reset stack(L);
-    _doBuffer(L, str, strlen(str));
-}
-
-LUA_FLUTTER_API void luaDoFile(lua_State* L, const char* name)
-{
-    stack_reset stack(L);
-    int err = luaL_loadfile(L, name);
-    if (err)
-    {
-        const char* str = lua_tostring(L, -1);
-        printf("doFile luaL_loadfile %s\n", str);
-        return;
-    }
-
-    if (lua_isfunction(L, -1))
-    {
-        err = lua_pcall(L, 0, LUA_MULTRET, 0);
-        if (err)
-        {
-            const char* str = lua_tostring(L, -1);
-            printf("doFile lua_pcall %s\n", str);
-        }
-    }
 }
 
 static void l_message(const char* pname, const char* msg) {

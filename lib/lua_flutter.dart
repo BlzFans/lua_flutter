@@ -108,8 +108,8 @@ T? luaToObjectT<T>(VoidPtr L, int idx) {
 @ffi.Native<ffi.Int32 Function(VoidPtr, Utf8Ptr)>(symbol: 'luaGetValue')
 external int _luaGetValue(VoidPtr L, Utf8Ptr str);
 
-@ffi.Native<ffi.Void Function(VoidPtr, Utf8Ptr)>(symbol: 'luaSetValue')
-external void _luaSetValue(VoidPtr L, Utf8Ptr str);
+@ffi.Native<ffi.Bool Function(VoidPtr, Utf8Ptr)>(symbol: 'luaSetValue')
+external bool _luaSetValue(VoidPtr L, Utf8Ptr str);
 
 @ffi.Native<ffi.Void Function(VoidPtr, Utf8Ptr)>(symbol: 'dostring')
 external void _dostring(VoidPtr L, Utf8Ptr str);
