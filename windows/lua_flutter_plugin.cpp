@@ -202,11 +202,11 @@ static void callstack(lua_State* L, int n)
         lua_getinfo(L, "nSlu", &ar);
         if (ar.name)
         {
-            printf("--->%s %d %s", ar.source, ar.currentline, ar.name);
+            printf("--->%s %d %s\n", ar.source, ar.currentline, ar.name);
         }
         else
         {
-            printf("--->%s %d", ar.source, ar.currentline);
+            printf("--->%s %d\n", ar.source, ar.currentline);
         }
 
         callstack(L, n + 1);
@@ -215,11 +215,11 @@ static void callstack(lua_State* L, int n)
 
 int onError(lua_State* L)
 {
-    printf("--->");
-    printf("---> %s", lua_tostring(L, -1));
-    printf("--->");
+    printf("--->\n");
+    printf("---> %s\n", lua_tostring(L, -1));
+    printf("--->\n");
     callstack(L, 0);
-    printf("--->");
+    printf("--->\n");
 
     return 1;
 }
@@ -388,7 +388,6 @@ LUA_FLUTTER_API void luaRegisterClass(lua_State* L, const char* className, const
         lua_rawset(L, -3);                         //[table]
     }
 
-    printf("luaRegisterClass %s\n", className);
     setLuaValue(L, className);              //[]
 }
 
@@ -418,7 +417,7 @@ bool _doBuffer(lua_State* L, const char* buffer, size_t size)
     if (err)
     {
         const char* str = lua_tostring(L, -1);
-        printf("doBuffer luaL_loadbuffer %s", str);
+        printf("doBuffer luaL_loadbuffer %s\n", str);
         lua_pop(L, 1);
         return false;
     }
@@ -429,7 +428,7 @@ bool _doBuffer(lua_State* L, const char* buffer, size_t size)
         if (err)
         {
             const char* str = lua_tostring(L, -1);
-            printf("doBuffer lua_pcall %s", str);
+            printf("doBuffer lua_pcall %s\n", str);
             lua_pop(L, 1);
         }
     }
@@ -468,7 +467,7 @@ LUA_FLUTTER_API void luaDoFile(lua_State* L, const char* name)
     if (err)
     {
         const char* str = lua_tostring(L, -1);
-        printf("doFile luaL_loadfile %s", str);
+        printf("doFile luaL_loadfile %s\n", str);
         return;
     }
 
@@ -478,7 +477,7 @@ LUA_FLUTTER_API void luaDoFile(lua_State* L, const char* name)
         if (err)
         {
             const char* str = lua_tostring(L, -1);
-            printf("doFile lua_pcall %s", str);
+            printf("doFile lua_pcall %s\n", str);
         }
     }
 }
