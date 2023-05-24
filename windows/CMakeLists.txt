@@ -83,7 +83,7 @@ set(LUA_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/../lua/lzio.h"
 )
 
-add_definitions("/wd4244" "/wd4324" "/wd4310" "/wd4701" "/wd4702")
+add_definitions("/wd4244" "/wd4324" "/wd4310" "/wd4701" "/wd4702" "/wd4189")
 add_definitions(-DLUA_BUILD_AS_DLL)
 
 # Define the plugin library target. Its name must not be changed (see comment
