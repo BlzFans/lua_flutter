@@ -171,6 +171,9 @@ external void lua_close (VoidPtr L);
 @ffi.Native<ffi.Void Function(VoidPtr)>()
 external void luaL_openlibs (VoidPtr L);
 
+@ffi.Native<ffi.Int32 Function(VoidPtr, ffi.Int32)>()
+external int lua_checkstack (VoidPtr L, int n);
+
 void tag_error (VoidPtr L, int arg, int tag) {
   int top = lua_gettop(L);
   String msg = tag_error_msg(L, arg, tag).toDartString();

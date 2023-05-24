@@ -1990,15 +1990,179 @@ int _ThemeData_ThemeData(VoidPtr L) {
 
     int top_ = lua_gettop(L); assert(top_ >= 0);
 
+    bool? applyElevationOverlayColor = _getNamedParam<bool>(L, top_, 'applyElevationOverlayColor');
+
+    NoDefaultCupertinoThemeData? cupertinoOverrideTheme = _getNamedParam<NoDefaultCupertinoThemeData>(L, top_, 'cupertinoOverrideTheme');
+
+    InputDecorationTheme? inputDecorationTheme = _getNamedParam<InputDecorationTheme>(L, top_, 'inputDecorationTheme');
+
+    MaterialTapTargetSize? materialTapTargetSize = _getNamedParam<MaterialTapTargetSize>(L, top_, 'materialTapTargetSize');
+
+    PageTransitionsTheme? pageTransitionsTheme = _getNamedParam<PageTransitionsTheme>(L, top_, 'pageTransitionsTheme');
+
+    TargetPlatform? platform = _getNamedParam<TargetPlatform>(L, top_, 'platform');
+
+    ScrollbarThemeData? scrollbarTheme = _getNamedParam<ScrollbarThemeData>(L, top_, 'scrollbarTheme');
+
+    InteractiveInkFeatureFactory? splashFactory = _getNamedParam<InteractiveInkFeatureFactory>(L, top_, 'splashFactory');
+
     bool? useMaterial3 = _getNamedParam<bool>(L, top_, 'useMaterial3');
 
-    MaterialColor? primarySwatch = _getNamedParam<MaterialColor>(L, top_, 'primarySwatch');
+    VisualDensity? visualDensity = _getNamedParam<VisualDensity>(L, top_, 'visualDensity');
 
     Brightness? brightness = _getNamedParam<Brightness>(L, top_, 'brightness');
 
+    Color? canvasColor = _getNamedParam<Color>(L, top_, 'canvasColor');
+
+    Color? cardColor = _getNamedParam<Color>(L, top_, 'cardColor');
+
+    ColorScheme? colorScheme = _getNamedParam<ColorScheme>(L, top_, 'colorScheme');
+
     Color? colorSchemeSeed = _getNamedParam<Color>(L, top_, 'colorSchemeSeed');
 
-    var result_ = ThemeData(useMaterial3: useMaterial3, primarySwatch: primarySwatch, brightness: brightness, colorSchemeSeed: colorSchemeSeed);
+    Color? dialogBackgroundColor = _getNamedParam<Color>(L, top_, 'dialogBackgroundColor');
+
+    Color? disabledColor = _getNamedParam<Color>(L, top_, 'disabledColor');
+
+    Color? dividerColor = _getNamedParam<Color>(L, top_, 'dividerColor');
+
+    Color? focusColor = _getNamedParam<Color>(L, top_, 'focusColor');
+
+    Color? highlightColor = _getNamedParam<Color>(L, top_, 'highlightColor');
+
+    Color? hintColor = _getNamedParam<Color>(L, top_, 'hintColor');
+
+    Color? hoverColor = _getNamedParam<Color>(L, top_, 'hoverColor');
+
+    Color? indicatorColor = _getNamedParam<Color>(L, top_, 'indicatorColor');
+
+    Color? primaryColor = _getNamedParam<Color>(L, top_, 'primaryColor');
+
+    Color? primaryColorDark = _getNamedParam<Color>(L, top_, 'primaryColorDark');
+
+    Color? primaryColorLight = _getNamedParam<Color>(L, top_, 'primaryColorLight');
+
+    MaterialColor? primarySwatch = _getNamedParam<MaterialColor>(L, top_, 'primarySwatch');
+
+    Color? scaffoldBackgroundColor = _getNamedParam<Color>(L, top_, 'scaffoldBackgroundColor');
+
+    Color? secondaryHeaderColor = _getNamedParam<Color>(L, top_, 'secondaryHeaderColor');
+
+    Color? shadowColor = _getNamedParam<Color>(L, top_, 'shadowColor');
+
+    Color? splashColor = _getNamedParam<Color>(L, top_, 'splashColor');
+
+    Color? unselectedWidgetColor = _getNamedParam<Color>(L, top_, 'unselectedWidgetColor');
+
+    String? fontFamily = _getNamedParam<String>(L, top_, 'fontFamily');
+
+    List<String>? fontFamilyFallback = _getNamedListParam<String>(L, top_, 'fontFamilyFallback');
+
+    String? package = _getNamedParam<String>(L, top_, 'package');
+
+    IconThemeData? iconTheme = _getNamedParam<IconThemeData>(L, top_, 'iconTheme');
+
+    IconThemeData? primaryIconTheme = _getNamedParam<IconThemeData>(L, top_, 'primaryIconTheme');
+
+    TextTheme? primaryTextTheme = _getNamedParam<TextTheme>(L, top_, 'primaryTextTheme');
+
+    TextTheme? textTheme = _getNamedParam<TextTheme>(L, top_, 'textTheme');
+
+    Typography? typography = _getNamedParam<Typography>(L, top_, 'typography');
+
+    ActionIconThemeData? actionIconTheme = _getNamedParam<ActionIconThemeData>(L, top_, 'actionIconTheme');
+
+    AppBarTheme? appBarTheme = _getNamedParam<AppBarTheme>(L, top_, 'appBarTheme');
+
+    BadgeThemeData? badgeTheme = _getNamedParam<BadgeThemeData>(L, top_, 'badgeTheme');
+
+    MaterialBannerThemeData? bannerTheme = _getNamedParam<MaterialBannerThemeData>(L, top_, 'bannerTheme');
+
+    BottomAppBarTheme? bottomAppBarTheme = _getNamedParam<BottomAppBarTheme>(L, top_, 'bottomAppBarTheme');
+
+    BottomNavigationBarThemeData? bottomNavigationBarTheme = _getNamedParam<BottomNavigationBarThemeData>(L, top_, 'bottomNavigationBarTheme');
+
+    BottomSheetThemeData? bottomSheetTheme = _getNamedParam<BottomSheetThemeData>(L, top_, 'bottomSheetTheme');
+
+    ButtonBarThemeData? buttonBarTheme = _getNamedParam<ButtonBarThemeData>(L, top_, 'buttonBarTheme');
+
+    ButtonThemeData? buttonTheme = _getNamedParam<ButtonThemeData>(L, top_, 'buttonTheme');
+
+    CardTheme? cardTheme = _getNamedParam<CardTheme>(L, top_, 'cardTheme');
+
+    CheckboxThemeData? checkboxTheme = _getNamedParam<CheckboxThemeData>(L, top_, 'checkboxTheme');
+
+    ChipThemeData? chipTheme = _getNamedParam<ChipThemeData>(L, top_, 'chipTheme');
+
+    DataTableThemeData? dataTableTheme = _getNamedParam<DataTableThemeData>(L, top_, 'dataTableTheme');
+
+    DatePickerThemeData? datePickerTheme = _getNamedParam<DatePickerThemeData>(L, top_, 'datePickerTheme');
+
+    DialogTheme? dialogTheme = _getNamedParam<DialogTheme>(L, top_, 'dialogTheme');
+
+    DividerThemeData? dividerTheme = _getNamedParam<DividerThemeData>(L, top_, 'dividerTheme');
+
+    DrawerThemeData? drawerTheme = _getNamedParam<DrawerThemeData>(L, top_, 'drawerTheme');
+
+    DropdownMenuThemeData? dropdownMenuTheme = _getNamedParam<DropdownMenuThemeData>(L, top_, 'dropdownMenuTheme');
+
+    ElevatedButtonThemeData? elevatedButtonTheme = _getNamedParam<ElevatedButtonThemeData>(L, top_, 'elevatedButtonTheme');
+
+    ExpansionTileThemeData? expansionTileTheme = _getNamedParam<ExpansionTileThemeData>(L, top_, 'expansionTileTheme');
+
+    FilledButtonThemeData? filledButtonTheme = _getNamedParam<FilledButtonThemeData>(L, top_, 'filledButtonTheme');
+
+    FloatingActionButtonThemeData? floatingActionButtonTheme = _getNamedParam<FloatingActionButtonThemeData>(L, top_, 'floatingActionButtonTheme');
+
+    IconButtonThemeData? iconButtonTheme = _getNamedParam<IconButtonThemeData>(L, top_, 'iconButtonTheme');
+
+    ListTileThemeData? listTileTheme = _getNamedParam<ListTileThemeData>(L, top_, 'listTileTheme');
+
+    MenuBarThemeData? menuBarTheme = _getNamedParam<MenuBarThemeData>(L, top_, 'menuBarTheme');
+
+    MenuButtonThemeData? menuButtonTheme = _getNamedParam<MenuButtonThemeData>(L, top_, 'menuButtonTheme');
+
+    MenuThemeData? menuTheme = _getNamedParam<MenuThemeData>(L, top_, 'menuTheme');
+
+    NavigationBarThemeData? navigationBarTheme = _getNamedParam<NavigationBarThemeData>(L, top_, 'navigationBarTheme');
+
+    NavigationDrawerThemeData? navigationDrawerTheme = _getNamedParam<NavigationDrawerThemeData>(L, top_, 'navigationDrawerTheme');
+
+    NavigationRailThemeData? navigationRailTheme = _getNamedParam<NavigationRailThemeData>(L, top_, 'navigationRailTheme');
+
+    OutlinedButtonThemeData? outlinedButtonTheme = _getNamedParam<OutlinedButtonThemeData>(L, top_, 'outlinedButtonTheme');
+
+    PopupMenuThemeData? popupMenuTheme = _getNamedParam<PopupMenuThemeData>(L, top_, 'popupMenuTheme');
+
+    ProgressIndicatorThemeData? progressIndicatorTheme = _getNamedParam<ProgressIndicatorThemeData>(L, top_, 'progressIndicatorTheme');
+
+    RadioThemeData? radioTheme = _getNamedParam<RadioThemeData>(L, top_, 'radioTheme');
+
+    SearchBarThemeData? searchBarTheme = _getNamedParam<SearchBarThemeData>(L, top_, 'searchBarTheme');
+
+    SearchViewThemeData? searchViewTheme = _getNamedParam<SearchViewThemeData>(L, top_, 'searchViewTheme');
+
+    SegmentedButtonThemeData? segmentedButtonTheme = _getNamedParam<SegmentedButtonThemeData>(L, top_, 'segmentedButtonTheme');
+
+    SliderThemeData? sliderTheme = _getNamedParam<SliderThemeData>(L, top_, 'sliderTheme');
+
+    SnackBarThemeData? snackBarTheme = _getNamedParam<SnackBarThemeData>(L, top_, 'snackBarTheme');
+
+    SwitchThemeData? switchTheme = _getNamedParam<SwitchThemeData>(L, top_, 'switchTheme');
+
+    TabBarTheme? tabBarTheme = _getNamedParam<TabBarTheme>(L, top_, 'tabBarTheme');
+
+    TextButtonThemeData? textButtonTheme = _getNamedParam<TextButtonThemeData>(L, top_, 'textButtonTheme');
+
+    TextSelectionThemeData? textSelectionTheme = _getNamedParam<TextSelectionThemeData>(L, top_, 'textSelectionTheme');
+
+    TimePickerThemeData? timePickerTheme = _getNamedParam<TimePickerThemeData>(L, top_, 'timePickerTheme');
+
+    ToggleButtonsThemeData? toggleButtonsTheme = _getNamedParam<ToggleButtonsThemeData>(L, top_, 'toggleButtonsTheme');
+
+    TooltipThemeData? tooltipTheme = _getNamedParam<TooltipThemeData>(L, top_, 'tooltipTheme');
+
+    var result_ = ThemeData(applyElevationOverlayColor: applyElevationOverlayColor, cupertinoOverrideTheme: cupertinoOverrideTheme, inputDecorationTheme: inputDecorationTheme, materialTapTargetSize: materialTapTargetSize, pageTransitionsTheme: pageTransitionsTheme, platform: platform, scrollbarTheme: scrollbarTheme, splashFactory: splashFactory, useMaterial3: useMaterial3, visualDensity: visualDensity, brightness: brightness, canvasColor: canvasColor, cardColor: cardColor, colorScheme: colorScheme, colorSchemeSeed: colorSchemeSeed, dialogBackgroundColor: dialogBackgroundColor, disabledColor: disabledColor, dividerColor: dividerColor, focusColor: focusColor, highlightColor: highlightColor, hintColor: hintColor, hoverColor: hoverColor, indicatorColor: indicatorColor, primaryColor: primaryColor, primaryColorDark: primaryColorDark, primaryColorLight: primaryColorLight, primarySwatch: primarySwatch, scaffoldBackgroundColor: scaffoldBackgroundColor, secondaryHeaderColor: secondaryHeaderColor, shadowColor: shadowColor, splashColor: splashColor, unselectedWidgetColor: unselectedWidgetColor, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, package: package, iconTheme: iconTheme, primaryIconTheme: primaryIconTheme, primaryTextTheme: primaryTextTheme, textTheme: textTheme, typography: typography, actionIconTheme: actionIconTheme, appBarTheme: appBarTheme, badgeTheme: badgeTheme, bannerTheme: bannerTheme, bottomAppBarTheme: bottomAppBarTheme, bottomNavigationBarTheme: bottomNavigationBarTheme, bottomSheetTheme: bottomSheetTheme, buttonBarTheme: buttonBarTheme, buttonTheme: buttonTheme, cardTheme: cardTheme, checkboxTheme: checkboxTheme, chipTheme: chipTheme, dataTableTheme: dataTableTheme, datePickerTheme: datePickerTheme, dialogTheme: dialogTheme, dividerTheme: dividerTheme, drawerTheme: drawerTheme, dropdownMenuTheme: dropdownMenuTheme, elevatedButtonTheme: elevatedButtonTheme, expansionTileTheme: expansionTileTheme, filledButtonTheme: filledButtonTheme, floatingActionButtonTheme: floatingActionButtonTheme, iconButtonTheme: iconButtonTheme, listTileTheme: listTileTheme, menuBarTheme: menuBarTheme, menuButtonTheme: menuButtonTheme, menuTheme: menuTheme, navigationBarTheme: navigationBarTheme, navigationDrawerTheme: navigationDrawerTheme, navigationRailTheme: navigationRailTheme, outlinedButtonTheme: outlinedButtonTheme, popupMenuTheme: popupMenuTheme, progressIndicatorTheme: progressIndicatorTheme, radioTheme: radioTheme, searchBarTheme: searchBarTheme, searchViewTheme: searchViewTheme, segmentedButtonTheme: segmentedButtonTheme, sliderTheme: sliderTheme, snackBarTheme: snackBarTheme, switchTheme: switchTheme, tabBarTheme: tabBarTheme, textButtonTheme: textButtonTheme, textSelectionTheme: textSelectionTheme, timePickerTheme: timePickerTheme, toggleButtonsTheme: toggleButtonsTheme, tooltipTheme: tooltipTheme);
 
     return luaPush(L, result_);
 

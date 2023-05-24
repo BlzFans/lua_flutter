@@ -1069,12 +1069,13 @@ void _initDebugUtils() {
   luaRegisterFunction(g_L, 'debugRepaintRainbow', address);
 }
 
-late final VoidPtr g_L;
+late VoidPtr g_L;
 
 void initLuaFlutter() {
   debugPrint("initLuaFlutter");
   g_L = luaL_newstate();
   luaL_openlibs(g_L);
+  lua_checkstack(g_L, 300);
 
   Timer.periodic(
     const Duration(seconds: 10), 
@@ -1122,4 +1123,5 @@ void initLuaFlutter() {
 
 void shutdownLuaFlutter() {
   lua_close(g_L);
+  g_L = ffi.nullptr;
 }

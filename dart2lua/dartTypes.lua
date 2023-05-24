@@ -11,7 +11,6 @@ callbackFunctions =
     WidgetBuilder = {"_getWidgetBuilder", "(context:BuildContext) => Widget"},
     StatefulWidgetBuilder = {"_getStatefulWidgetBuilder", "(context: BuildContext, setState: () => void) => Widget"},
     StateCreator = {"_getStateCreator", "() => LState"},
-    TreeNodeBuilder = {"_getTreeNodeBuilder", "(context:BuildContext, entry:TreeEntry) => Widget"},
     StringValueChanged = {"_getVoidCallbackT<String>", "(value: string) => void"},
     BoolValueChanged = {"_getVoidCallbackT2<bool>", "(value: boolean) => void"},
     IntValueChanged = {"_getVoidCallbackT<int>", "(value: int) => void"},
@@ -43,8 +42,6 @@ callbackFunctions =
     ["PopupMenuItemSelected<int>"] = {"_getVoidCallbackT<int>", "(action: int) => void"},
     DropdownButtonBuilder = {"_getDropdownButtonBuilder", "(context: BuildContext) => Widget[]"},
     ["ValueChanged<Set<int>>"] = {"_getVoidCallbackT<Set<int>>", "(selection: int[]) => void"},
-    StickDragCallback = {"_getStickDragCallback", "(details: StickDragDetails) => void"},
-    ChatSendCallback = {"_getChatSendCallback", "(message: ChatPartialText) => void"},
     FrameCallback = {"_getVoidCallbackT<Duration>", "(timeStamp: Duration) => void"},
     ["MaterialPropertyResolver<Color>"] = {"_getMaterialPropertyResolverT<Color>", "(states: MaterialState[]) => Color"},
     ["MaterialPropertyResolver<BorderSide>"] = {"_getMaterialPropertyResolverT<BorderSide>", "(states: MaterialState[]) => BorderSide"},
@@ -302,7 +299,7 @@ class "CupertinoApp" {
 ]]
 
 class "ThemeData" {
-    "ThemeData({bool? useMaterial3, MaterialColor? primarySwatch, Brightness? brightness, Color? colorSchemeSeed})",
+    "ThemeData({bool? applyElevationOverlayColor, NoDefaultCupertinoThemeData? cupertinoOverrideTheme, InputDecorationTheme? inputDecorationTheme, MaterialTapTargetSize? materialTapTargetSize, PageTransitionsTheme? pageTransitionsTheme, TargetPlatform? platform, ScrollbarThemeData? scrollbarTheme, InteractiveInkFeatureFactory? splashFactory, bool? useMaterial3, VisualDensity? visualDensity, Brightness? brightness, Color? canvasColor, Color? cardColor, ColorScheme? colorScheme, Color? colorSchemeSeed, Color? dialogBackgroundColor, Color? disabledColor, Color? dividerColor, Color? focusColor, Color? highlightColor, Color? hintColor, Color? hoverColor, Color? indicatorColor, Color? primaryColor, Color? primaryColorDark, Color? primaryColorLight, MaterialColor? primarySwatch, Color? scaffoldBackgroundColor, Color? secondaryHeaderColor, Color? shadowColor, Color? splashColor, Color? unselectedWidgetColor, String? fontFamily, List<String>? fontFamilyFallback, String? package, IconThemeData? iconTheme, IconThemeData? primaryIconTheme, TextTheme? primaryTextTheme, TextTheme? textTheme, Typography? typography, ActionIconThemeData? actionIconTheme, AppBarTheme? appBarTheme, BadgeThemeData? badgeTheme, MaterialBannerThemeData? bannerTheme, BottomAppBarTheme? bottomAppBarTheme, BottomNavigationBarThemeData? bottomNavigationBarTheme, BottomSheetThemeData? bottomSheetTheme, ButtonBarThemeData? buttonBarTheme, ButtonThemeData? buttonTheme, CardTheme? cardTheme, CheckboxThemeData? checkboxTheme, ChipThemeData? chipTheme, DataTableThemeData? dataTableTheme, DatePickerThemeData? datePickerTheme, DialogTheme? dialogTheme, DividerThemeData? dividerTheme, DrawerThemeData? drawerTheme, DropdownMenuThemeData? dropdownMenuTheme, ElevatedButtonThemeData? elevatedButtonTheme, ExpansionTileThemeData? expansionTileTheme, FilledButtonThemeData? filledButtonTheme, FloatingActionButtonThemeData? floatingActionButtonTheme, IconButtonThemeData? iconButtonTheme, ListTileThemeData? listTileTheme, MenuBarThemeData? menuBarTheme, MenuButtonThemeData? menuButtonTheme, MenuThemeData? menuTheme, NavigationBarThemeData? navigationBarTheme, NavigationDrawerThemeData? navigationDrawerTheme, NavigationRailThemeData? navigationRailTheme, OutlinedButtonThemeData? outlinedButtonTheme, PopupMenuThemeData? popupMenuTheme, ProgressIndicatorThemeData? progressIndicatorTheme, RadioThemeData? radioTheme, SearchBarThemeData? searchBarTheme, SearchViewThemeData? searchViewTheme, SegmentedButtonThemeData? segmentedButtonTheme, SliderThemeData? sliderTheme, SnackBarThemeData? snackBarTheme, SwitchThemeData? switchTheme, TabBarTheme? tabBarTheme, TextButtonThemeData? textButtonTheme, TextSelectionThemeData? textSelectionTheme, TimePickerThemeData? timePickerTheme, ToggleButtonsThemeData? toggleButtonsTheme, TooltipThemeData? tooltipTheme})",
     "final ColorScheme colorScheme",
     "final TextTheme textTheme",
     "final TextTheme primaryTextTheme",
