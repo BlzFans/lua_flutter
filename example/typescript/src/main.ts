@@ -5,11 +5,14 @@ namespace flutter {
         return StatefulBuilder({
             builder(context, setState): Widget {
                 let widget: Widget
+                let theme = Theme.of(context)
+                let colorScheme = theme.colorScheme
+                let textTheme = theme.textTheme
 
                 widget = Scaffold({
                     appBar: AppBar({
-                        title: Text("Lua Flutter Demo Home Page"),
-                        backgroundColor: Theme.of(context).colorScheme.inversePrimary
+                        title: Text("Typescript Flutter Demo Home Page"),
+                        backgroundColor: colorScheme.inversePrimary
                     }),
                     
                     body: Center ({
@@ -17,7 +20,9 @@ namespace flutter {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 Text('You have pushed the button this many times:'),
-                                Text(`${pressCount}`, {style: Theme.of(context).textTheme.headlineMedium}),
+                                Text(`${pressCount}`, {
+                                    style: textTheme.headlineMedium
+                                }),
                             ]
                         })
                     }),
@@ -60,7 +65,7 @@ namespace flutter {
                 return MaterialApp({
                     title: "Flutter Demo",
                     theme: ThemeData({
-                        colorScheme: ColorScheme.fromSeed({seedColor: Colors.deepPurple}), 
+                        colorSchemeSeed: Colors.deepPurple, 
                         useMaterial3: true,
                     }),
                     debugShowCheckedModeBanner: false,
