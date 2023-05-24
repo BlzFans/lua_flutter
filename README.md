@@ -4,6 +4,7 @@ Create flutter app using lua and typescript
 
 ## Lua
 ```lua title=main.lua
+--main.lua
 local widget = Center {
   child = Text(
       "flutter_main", {
@@ -21,6 +22,7 @@ runApp(widget)
 
 ## Typescript
 ```typescript title=main.ts
+//main.ts
 namespace flutter {
     function homePage() {
         let pressCount = 0
