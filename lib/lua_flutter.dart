@@ -620,6 +620,7 @@ void dumpTable(VoidPtr L, int index) {
 class LuaCallback {
   final int? _luaRef;
   final _objects = <Object>{};
+  String? stack;
 
   LuaCallback(this._luaRef);  
   T invoke<T>(VoidPtr L, [List<Object>? args]) {
@@ -643,10 +644,12 @@ class LuaCallback {
           int id = _luaToObject(L, -1);
           Object? obj = _idToObject[id];
           if (obj != null) {
-            //debugPrint("move upvalue $n $id from lua to dart");
-            _objects.add(obj);
-            _idToObject.remove(id);
-            _idToObjectWeak[id] = WeakReference(obj);
+            if (obj is BuildContext || obj is LState) {
+              //debugPrint("move upvalue $n $id from lua to dart");
+              _objects.add(obj);
+              _idToObject.remove(id);
+              _idToObjectWeak[id] = WeakReference(obj);
+            }
           }
         }
 
@@ -671,10 +674,28 @@ final _callbackList = <WeakReference<LuaCallback>>{};
 int break_circular_reference(VoidPtr L) {
   _callbackList.removeWhere((element) => element.target == null);
   for (var obj in _callbackList) {
-      obj.target!.breakCircularReference(L);
+    obj.target!.breakCircularReference(L);
   }
 
   return 0;
+}
+
+int getLuaCallbackCount(VoidPtr L) {
+  lua_pushinteger(L, _callbackList.length);
+  return 1;
+}
+
+int dumpLuaCallback(VoidPtr L) {
+  String stacks = "";
+  int i = 1;
+  for (var cb in _callbackList) {
+    var stack = cb.target?.stack;
+    stacks += "$i $stack\n";
+    i++;
+  }
+
+  luaPushString(L, stacks);
+  return 1;
 }
 
 LuaCallback? _getLuaCallback(VoidPtr L, int idx, String? name) {
@@ -706,6 +727,15 @@ LuaCallback? _getLuaCallback(VoidPtr L, int idx, String? name) {
       var callback = LuaCallback(ref);
       _callbackFinalizer.attach(callback, ref, detach:callback);
       _callbackList.add(WeakReference(callback));
+
+      assert(() {
+        luaL_traceback(g_L, g_L, ffi.nullptr, 0);
+        callback.stack = "callback: $name \n ${lua_tostring(g_L, -1).toDartString()} \n";
+        lua_pop(g_L, 1);
+        
+        return true;
+      } ());
+
       return callback;
     }
   } else {
@@ -791,7 +821,7 @@ class LState extends State<StatefulWidget> {
   LState({required this.builder, this.onInit});
 
   VoidCallback? onInit;
-  WidgetBuilder builder;
+  WidgetBuilder? builder;
 
   void markNeedsBuild () {
     setState(() {});
@@ -808,7 +838,15 @@ class LState extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return builder(context);
+    return builder!(context);
+  }
+
+  @override
+  void dispose() {    
+    super.dispose();
+    //debugPrint("LState dispose");
+    onInit = null;
+    builder = null;
   }
 }
 
@@ -1067,6 +1105,12 @@ void _initDebugUtils() {
 
   address = ffi.Pointer.fromFunction<lua_CFunction>(debugRepaintRainbow, exceptionalReturn).address;
   luaRegisterFunction(g_L, 'debugRepaintRainbow', address);
+
+  address = ffi.Pointer.fromFunction<lua_CFunction>(getLuaCallbackCount, exceptionalReturn).address;
+  luaRegisterFunction(g_L, 'getLuaCallbackCount', address);
+
+  address = ffi.Pointer.fromFunction<lua_CFunction>(dumpLuaCallback, exceptionalReturn).address;
+  luaRegisterFunction(g_L, 'dumpLuaCallback', address);
 }
 
 late VoidPtr g_L;

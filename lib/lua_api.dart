@@ -162,17 +162,20 @@ external Utf8Ptr lua_getupvalue(VoidPtr L, int funcindex, int n); //const char *
 @ffi.Native<Utf8Ptr Function(VoidPtr, ffi.Int32, ffi.Int32)>()
 external Utf8Ptr lua_setupvalue(VoidPtr L, int funcindex, int n); //const char *lua_setupvalue (lua_State *L, int funcindex, int n); [-(0|1), +0, –]
 
+@ffi.Native<ffi.Void Function(VoidPtr, VoidPtr, Utf8Ptr, ffi.Int32)>()
+external void luaL_traceback(VoidPtr L, VoidPtr L1, Utf8Ptr msg, int level);  //void luaL_traceback (lua_State *L, lua_State *L1, const char *msg, int level); [-0, +1, m]
+
 @ffi.Native<VoidPtr Function()>()
-external VoidPtr luaL_newstate ();
+external VoidPtr luaL_newstate (); //lua_State *luaL_newstate (void); [-0, +0, –]
 
 @ffi.Native<ffi.Void Function(VoidPtr)>()
-external void lua_close (VoidPtr L);
+external void lua_close (VoidPtr L); //void lua_close (lua_State *L); [-0, +0, –]
 
 @ffi.Native<ffi.Void Function(VoidPtr)>()
-external void luaL_openlibs (VoidPtr L);
+external void luaL_openlibs (VoidPtr L); //void luaL_openlibs (lua_State *L); [-0, +0, e]
 
 @ffi.Native<ffi.Int32 Function(VoidPtr, ffi.Int32)>()
-external int lua_checkstack (VoidPtr L, int n);
+external int lua_checkstack (VoidPtr L, int n); //int lua_checkstack (lua_State *L, int n); [-0, +0, –]
 
 void tag_error (VoidPtr L, int arg, int tag) {
   int top = lua_gettop(L);
