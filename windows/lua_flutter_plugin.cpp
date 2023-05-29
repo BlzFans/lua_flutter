@@ -318,13 +318,12 @@ static int meta_index(lua_State* L)                //[userdata key]
     if (type == LUA_TFUNCTION) {
         lua_pushvalue(L, -3);                     //[userdata key super__meta__index userdata]
         lua_pushvalue(L, -3);                     //[userdata key super__meta__index userdata key]
-        if (LUA_OK == lua_pcall(L, 2, 1, 0))      //[userdata key super__meta__index value]
+        if (LUA_OK == lua_pcall(L, 2, 1, 0))      //[userdata key value]
         {
-            lua_remove(L, -2);                    //[userdata key value]
         }
         else
         {
-            lua_pop(L, 2);                        //[userdata key]
+            lua_pop(L, 1);                        //[userdata key]
             lua_pushnil(L);                       //[userdata key nil]
         }
 
